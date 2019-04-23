@@ -7,7 +7,7 @@ module.exports = {
     devServer: {
         publicPath: 'http://localhost:8080/build/',
         port: 8080,
-        proxy: {'/api/leaders/': 'http://localhost:3000'}
+        proxy: {'/api/cuisines/': "http://localhost:3000"}
     },
     output: {
       path: path.resolve(__dirname, 'build'),
