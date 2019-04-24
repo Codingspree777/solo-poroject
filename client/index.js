@@ -6,9 +6,6 @@ import Main from './components/Main';
 import Dishes from './components/Dishes';
 
 
-// uncomment so that webpack can bundle styles
-//import styles from './scss/application.scss';
-
 
 const routing = (
   <Router>

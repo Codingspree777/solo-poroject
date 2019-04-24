@@ -29,7 +29,6 @@ class Dishes extends Component {
     return (
       <div>
       {images}
-      {name}
     </div>
     )
    
