@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-//import { render } from 'react-dom';
 import {Route, Link, Switch, BrowserRouter as Router} from 'react-router-dom';
 import Main from './components/Main';
 import Dishes from './components/Dishes';
 
+import styles from './scss/application.scss';
 
 
 const routing = (

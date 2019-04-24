@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Dishes from './Dishes';
+import Chatroom from './Chatroom';
+
 
 
 class Main extends Component {
@@ -8,7 +10,7 @@ class Main extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.change = this.change.bind(this);
     this.clicked = this.clicked.bind(this);
-    this.getURL = this.clicked.bind(this);
+    this.chatRoom = this.chatRoom.bind(this);
     this.state = {
       urls: [],
       user: "",
@@ -42,11 +44,12 @@ class Main extends Component {
         Portuguese: "cuisine^cuisine-portuguese",
       },
       clicked: false,
+      clicked2: false,
+      redirect: false
     }
   }
 
   
-
   handleChange(e) {
     event.preventDefault()
       this.setState({
@@ -69,15 +72,21 @@ class Main extends Component {
     })
   }
  
-  
-
+  chatRoom(e){
+    fetch(`http://api.yummly.com/v1/api/recipe/${e.target.value}?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109`)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({urls: data,
+      clicked2: true})
+    })
+  }
 
 
   render() {
     //console.log(this.state.clicked);
    //console.log(this.state.cuisine);
     // // console.log(this.state.user);
-    console.log(this.state.urls);
+    //console.log(this.state.urls);
 
     const keyVal = Object.entries(this.state.cuisineVal);
     const selectOpts = keyVal.map((ele, ind)=>{
@@ -94,16 +103,13 @@ class Main extends Component {
         </div>
       )
     }
-    else {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls}></Dishes>)
+    else if(!this.state.clicked2) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom}></Dishes>)
+    } else {
+        return(<Chatroom urls={this.state.urls} redirect={this.redirect}></Chatroom>)
     }
 
-}
+  }
 
-
-    // return(
-    //   <Dishes cuisine={this.state.cuisine} urls={this.state.urls}>
-    //   </Dishes>
-    // )
 
 }
 
