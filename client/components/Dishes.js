@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Chat from './Chat';
 import Main from './Main';
 
 

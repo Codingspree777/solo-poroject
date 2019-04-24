@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Dishes from './Dishes';
-import Main from './Main';
 import Iframe from 'react-iframe';
+import Main from './Main';
+import Chat from './Chat';
+
 
 class Chatroom extends Component {
 	constructor(props, context){
@@ -14,14 +16,15 @@ class Chatroom extends Component {
 		 let link = this.props.urls["source"]["sourceRecipeUrl"]
 		 
 		 return (
-				<div>
+				<div id="wrapper">
 					<Iframe url={link}
-        width="80%"
-        height="100%"
-        className="myClassname"
+        width="75%"
+		height="99%"
+		border="solid 5px"
+        className="leftcolumn"
         display="initial"
         position="relative"/>
-
+				<Chat></Chat>
 				</div>
 		 );
 	 }

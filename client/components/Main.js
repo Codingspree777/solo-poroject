@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Dishes from './Dishes';
 import Chatroom from './Chatroom';
+import Chat from './Chat';
+//import background from '../assets/background'
+
 
 
 
@@ -94,7 +97,7 @@ class Main extends Component {
     })
    if(!this.state.clicked){
       return (
-        <div>
+        <div id="frontPage">
           <input onChange={this.change}></input>
           <select value={this.state.cuisine} onChange={this.handleChange}>
             {selectOpts};

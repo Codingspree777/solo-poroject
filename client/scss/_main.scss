@@ -1,5 +1,21 @@
+
 body {
-    background-image: url('../assets/1.png');   
-    //background-color: aqua;
+    //background-image: url('../assets/1.png');   
+    background-color: aqua;
   }
+
+#wrapper {
+  display: flex;
+}
+
+
+#chatwindow {
+  background-color: lightgrey;
+  height: 101%;
+  width: 24%;
+  border: solid 1px;
+  overflow: scroll;
+  position: relative;
+  float: right;
+}
   
