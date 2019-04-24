@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import Dishes from './Dishes';
 
-class App extends Component {
+
+class Main extends Component {
   constructor(props, context){
     super(props, context);
     this.handleChange = this.handleChange.bind(this);
+    this.change = this.change.bind(this);
+    this.clicked = this.clicked.bind(this);
+    this.getURL = this.clicked.bind(this);
     this.state = {
-      cuisine:"",
       urls: [],
+      user: "",
+      cuisine:"",
       dish: "",
       cuisineVal:  {
         American: "cuisine^cuisine-american",
@@ -35,45 +41,71 @@ class App extends Component {
         Swedish: "cuisine^cuisine-swedish",
         Portuguese: "cuisine^cuisine-portuguese",
       },
+      clicked: false,
     }
   }
 
-  // componentDidMount() {
-  //   fetch("http://api.yummly.com/v1/api/metadata/cuisine?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109")
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     this.setState({urls: data})
-  //   })
-  // }
   
-  
+
   handleChange(e) {
+    event.preventDefault()
       this.setState({
         cuisine: e.target.value
       })
     }
 
+  change(e) {
+   this.setState({
+     user: e.target.value 
+   })
+  }
+
+  clicked() {
+    fetch(`http://api.yummly.com/v1/api/recipes?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109&allowedCuisine[]=${this.state.cuisine}`)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({urls: data,
+      clicked: true})
+    })
+  }
+ 
+  
+
 
 
   render() {
-    console.log(this.state.cuisine);
+    //console.log(this.state.clicked);
+   //console.log(this.state.cuisine);
+    // // console.log(this.state.user);
+    console.log(this.state.urls);
+
     const keyVal = Object.entries(this.state.cuisineVal);
     const selectOpts = keyVal.map((ele, ind)=>{
       return <option id={ind} value={ele[1]}>{ele[0]}</option>
     })
-
-    return (
-      <div>
-        <input></input>
-        <select value={this.state.cuisine} onChange={this.handleChange}>
-          {selectOpts};
-        </select>
-      </div>
-    );
-  }
-
+   if(!this.state.clicked){
+      return (
+        <div>
+          <input onChange={this.change}></input>
+          <select value={this.state.cuisine} onChange={this.handleChange}>
+            {selectOpts};
+          </select>
+          <button onClick={this.clicked} >Join</button>
+        </div>
+      )
+    }
+    else {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls}></Dishes>)
+    }
 
 }
 
-export default App;
+
+    // return(
+    //   <Dishes cuisine={this.state.cuisine} urls={this.state.urls}>
+    //   </Dishes>
+    // )
+
+}
+
+export default Main;
 

@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-app.get('/api/cuisines/', (req, res) => {
-  res.send();
-});
+// app.get('/api/cuisines/', (req, res) => {
+//   res.send();
+// });
 
 
 console.log(process.env.NODE_ENV);

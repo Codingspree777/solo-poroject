@@ -6,12 +6,14 @@ module.exports = {
     entry: './client/index.js',
     devServer: {
         publicPath: 'http://localhost:8080/build/',
+        //publicPath: '/',
         port: 8080,
         proxy: {'/api/cuisines/': "http://localhost:3000"}
     },
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'bundle.js',
+      //publicPath: '/',
     },
     module: {
       rules: [ 
