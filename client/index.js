@@ -24,10 +24,11 @@ ReactDOM.render(routing, document.getElementById('root'))
 // class App extends React.Component {
 //   render(){
 //     return (
-//       <Router>
-//         <Route path={"/"} component={Main}></Route>
-//         <Route path={"/dishes"} component={Dishes}></Route>
-//       </Router>
+//       <div className="row">
+//         {/* <ChatWindow pollInterval={3000} url="/messages" />
+//         <Chatroom url="http://slack-server.elasticbeanstalk.com/calendar/junior" /> */
+//         <Main></Main>}
+//       </div>
 //     )
 //   }
 // }

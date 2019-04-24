@@ -105,7 +105,7 @@ class Main extends Component {
     }
     else if(!this.state.clicked2) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom}></Dishes>)
     } else {
-        return(<Chatroom urls={this.state.urls} redirect={this.redirect}></Chatroom>)
+        return(<Chatroom urls={this.state.urls} redirect={this.redirect}><div></div></Chatroom>)
     }
 
   }
