@@ -13,6 +13,7 @@ class Chat extends Component {
     };
     //slice every 50 messages
     parseData(data) {
+        console.log(data);
         let msg = data.slice(-50);
         if (_.isEqual(msg, this.state.messages)) return;
         this.setState({ messages: msg });
@@ -23,12 +24,9 @@ class Chat extends Component {
          fetch('/messages')
          .then(response => response.json())
         .then(data =>{
-           that.parseData
+           that.parseData(data)
         });
-        // $.get(this.props.url).done(function(data) {
-        //   that.parseData(data);
-        // });
-        setTimeout(that.getData, that.props.pollInterval);
+        //setTimeout(that.getData, that.props.pollInterval);
       }
 
     componentDidMount() {
@@ -37,7 +35,7 @@ class Chat extends Component {
 
     render(){
         return (
-            <div id="chatwindow">HI</div>
+            <div id="chatwindow">{this.state.messages}</div>
         )
     }
 
