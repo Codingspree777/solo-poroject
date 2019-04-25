@@ -5,7 +5,7 @@ import Main from './components/Main';
 import Dishes from './components/Dishes';
 import Chat from './components/Chat';
 
-import styles from './scss/application.scss';
+import styles from './scss/_application.scss';
 
 
 const routing = (

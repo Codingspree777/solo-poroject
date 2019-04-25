@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dishes from './Dishes';
 import Chatroom from './Chatroom';
 import Chat from './Chat';
-//import background from '../assets/background'
+const axios = require('axios');
 
 
 
@@ -16,6 +16,7 @@ class Main extends Component {
     this.chatRoom = this.chatRoom.bind(this);
     this.state = {
       urls: [],
+      messages: [],
       user: "",
       cuisine:"",
       dish: "",
@@ -76,20 +77,27 @@ class Main extends Component {
   }
  
   chatRoom(e){
+    console.log("yee")
     fetch(`http://api.yummly.com/v1/api/recipe/${e.target.value}?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109`)
     .then(response => response.json())
     .then(data => {
       this.setState({urls: data,
       clicked2: true})
     })
+    fetch(`http://slack-server.elasticbeanstalk.com/messages`)
+    .then(response => response.json())
+    .then(data2 => {
+      this.setState({messages: data2,
+      redirect: true})
+    })
   }
-
 
   render() {
     //console.log(this.state.clicked);
    //console.log(this.state.cuisine);
     // // console.log(this.state.user);
     //console.log(this.state.urls);
+    //console.log(this.state.messages, "main")
 
     const keyVal = Object.entries(this.state.cuisineVal);
     const selectOpts = keyVal.map((ele, ind)=>{
@@ -99,7 +107,7 @@ class Main extends Component {
       return (
         <div id="frontPage">
         <div id="join">
-          <input onChange={this.change} id="input"></input>
+          <input onChange={this.change} id="input" placeholder="Name"></input>
           <select value={this.state.cuisine} onChange={this.handleChange} id="dropdown">
             {selectOpts};
           </select>
@@ -108,9 +116,9 @@ class Main extends Component {
         </div>
       )
     }
-    else if(!this.state.clicked2) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom}></Dishes>)
+    else if(this.state.clicked2 === false && this.state.redirect === false) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom} messages={this.state.messages}></Dishes>)
     } else {
-        return(<Chatroom urls={this.state.urls} redirect={this.redirect}><div></div></Chatroom>)
+        return(<Chatroom urls={this.state.urls} messages={this.state.messages}><div></div></Chatroom>)
     }
 
   }

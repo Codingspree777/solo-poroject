@@ -1,19 +1,23 @@
 const express = require('express');
 const app = express();
-const messageController = require('./MessageComponent/messageController.js');
+const messageController = require('./MessageComponent/messageController');
 const path = require('path');
 const mongoose = require('mongoose');
+const fs = require('fs');
 
-mongoose.connect("mongodb://andrew:$codesmith&@ds035713.mongolab.com:35713/slack-server");
+mongoose.connect(JSON.parse(fs.readFileSync(__dirname + '/config.json','utf8')).uri, () => {
+  connectedToDB = true;
+  console.log('connected to mongo');
+});
 
 app.get('/messages', (req, res) => {
+  console.log(reg)
   //response with set header
-  res.header("Content-Type", "application/json'");
-  //need since a __dirname is created, we can shortcut to send file. 
-  return messageController.getMessages(req, res);
-    
+ res.setheader("Content-Type", "application/json'");
+ //need since a __dirname is created, we can shortcut to send file. 
+ return messageController.getMessages(req, res);
+     
 })
-
 
 // statically serve everything in the build folder on the route '/build'
 if(process.env.NODE_ENV === 'production')
@@ -22,7 +26,8 @@ if(process.env.NODE_ENV === 'production')
   app.use('/build', express.static(path.join(__dirname, '../build')));
   // serve index.html on the route '/'
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
+  res.sendFile(path.join(__dirname, '../index.html'));
+    
 });
 
 }

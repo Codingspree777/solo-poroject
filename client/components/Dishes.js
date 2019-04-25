@@ -29,12 +29,14 @@ class Dishes extends Component {
     let l = 0;
     let m = 0;
     while(l < recipeName.length && m < recipeID.length){
-      select.push(<p className="choice">{recipeName[l]} <button value={recipeID[m]} onClick={this.props.chatRoom}>select</button></p>)
+      select.push(<p className="choice">{recipeName[l]} <button value={recipeID[m]} 
+      onClick={this.props.chatRoom}>select</button></p>)
       l++;
       m++;
     }
     return (
       <div id="wrapper2">
+      <h2>Select Your dishes</h2>
         <div className="images">
         {images}
         </div>

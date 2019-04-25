@@ -2,40 +2,63 @@ import React, { Component } from 'react';
 import Main from './Main';
 import Dishes from './Dishes';
 import Chatroom from './Chatroom';
+const axios = require('axios');
 
 
 class Chat extends Component {
 	constructor(props, context){
         super(props, context);
-        this.state = {
-            messages: []
-        }
     };
     //slice every 50 messages
-    parseData(data) {
-        console.log(data);
-        let msg = data.slice(-50);
-        if (_.isEqual(msg, this.state.messages)) return;
-        this.setState({ messages: msg });
-    }
+    // parseData(data) {
+    //     let msg = data.slice(-50);
+    //     if (_.isEqual(msg, this.state.messages)) return;
+    //     this.setState({ messages: msg.concat(data) });
+    // }
 
-    getData() {
-         let that = this;
-         fetch('/messages')
-         .then(response => response.json())
-        .then(data =>{
-           that.parseData(data)
-        });
-        //setTimeout(that.getData, that.props.pollInterval);
-      }
+    // getData() {
+    //      let that = this;
+    //      axios.get("/messages")
+    //      .then(function(response) {
+    //          console.log(response)
+    //        that.parseData(response);
+    //      })
+    //      .catch(function(err) {s
+    //        console.log("There was an error?! ", err);
+    //      });
+    //     //setTimeout(that.getData, that.props.pollInterval);
+    //   }
 
-    componentDidMount() {
-        this.getData()
-      }
-
+  // componentDidMount() {
+  //       //this.getData() 
+	// 	axios.get("http://slack-server.elasticbeanstalk.com/messages")
+	// 	.then(function(response) {
+	// 				this.updateMess(response.data)
+	// 	})
+	// 	.catch(function(err) {
+	// 		console.log("There was an error! ", err);
+	// 	});
+	// 	}
+	
+		
     render(){
+				let msgLines = []
+				let copy = this.props.messages.slice()
+				for(let i = copy.length-200; i > 0; i--){
+					
+				msgLines.push(<p>user: {copy[i]["created_by"]}	</p>)
+				msgLines.push(<p>message: "{copy[i]["message"]}"</p>)
+				msgLines.push(<p>created: "{copy[i]["created_at"]}"</p>)
+					
+				}
+
+
         return (
-            <div id="chatwindow">{this.state.messages}</div>
+            <div id="chatwindow">
+            <ul>{msgLines}</ul>
+						<br></br>
+						<div id="postbox"><button>Post</button></div>
+            </div>
         )
     }
 

@@ -10,10 +10,10 @@ class Chatroom extends Component {
 		super(props, context)
 	};
 
-
+	
 
 	 render() {
-		 let link = this.props.urls["source"]["sourceRecipeUrl"]
+		let link = this.props.urls["source"]["sourceRecipeUrl"]
 		 
 		 return (
 				<div id="wrapper">
@@ -24,7 +24,8 @@ class Chatroom extends Component {
         className="leftcolumn"
         display="initial"
         position="relative"/>
-				<Chat></Chat>
+				<Chat messages={this.props.messages} updateMess={this.props.updateMess}></Chat>
+				
 				</div>
 		 );
 	 }
