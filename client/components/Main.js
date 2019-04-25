@@ -116,13 +116,15 @@ class Main extends Component {
       this.setState({messages: data2})
     })
 
+
+
   }
   render() {
     //console.log(this.state.clicked);
    //console.log(this.state.cuisine);
     // // console.log(this.state.user);
     //console.log(this.state.urls);
-    console.log(this.state.messages, "main")
+    //console.log(this.state.messages, "main")
 
     const keyVal = Object.entries(this.state.cuisineVal);
     const selectOpts = keyVal.map((ele, ind)=>{
