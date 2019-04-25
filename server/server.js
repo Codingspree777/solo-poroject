@@ -1,9 +1,20 @@
 const express = require('express');
 const app = express();
+const messageController = require('./MessageComponent/messageController.js');
 const path = require('path');
+const mongoose = require('mongoose');
 
 
-
+app.get('/messages', (req, res) => {
+  //response with set header
+  ///set path
+  let file = path.join(__dirname, '/client', 'that.html')
+  //set header
+  res.header("Content-Type", "text/html; charset=utf-8");
+  //need since a __dirname is created, we can shortcut to send file. 
+  res.sendFile(file);
+    
+})
 
 
 // statically serve everything in the build folder on the route '/build'
