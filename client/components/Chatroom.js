@@ -16,7 +16,6 @@ class Chatroom extends Component {
 
 	 render() {
 		let link = this.props.urls["source"]["sourceRecipeUrl"]
-		 
 		 return (
 				<div id="wrapper">
 					<Iframe url={link}
@@ -27,8 +26,10 @@ class Chatroom extends Component {
         display="initial"
         position="relative"/>
 				<Chat messages={this.props.messages} updateMess={this.props.updateMess} pMessage={this.props.pMessage} postMessage={this.props.postMessage}
-				fire={this.props.fire} updateChat={this.props.updateChat}></Chat>
-				</div>
+				fire={this.props.fire} updateChat={this.props.updateChat} ></Chat>
+				)}
+		</div>
+				
 		 );
 	 }
 }
