@@ -10,6 +10,8 @@ class Chatroom extends Component {
 		super(props, context)
 	};
 
+
+
 	
 
 	 render() {

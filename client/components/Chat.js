@@ -3,6 +3,8 @@ import Main from './Main';
 import Dishes from './Dishes';
 import Chatroom from './Chatroom';
 const axios = require('axios');
+import { css } from 'glamor';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 
 class Chat extends Component {
@@ -49,9 +51,12 @@ class Chat extends Component {
 				msgLines.push(<p>[message:] "{copy[i]["message"]}"</p>)
 				msgLines.push(<p>[created:] "{copy[i]["created_at"]}"</p>)
 				}
-
+        const scroll_Down = css({
+          height: 600,
+          width: 400
+        });
         return (
-            <div id="chatwindow">
+            <div id="chatwindow" className="scroll_Down">
             <ul>{msgLines}</ul>
 						<br></br>
 						<div>
@@ -59,6 +64,7 @@ class Chat extends Component {
 						<button id="postbutton" onClick={this.props.fire}>Post</button>
 						</div>
             </div>
+            
 				)
 		
     }
