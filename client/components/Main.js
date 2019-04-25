@@ -98,11 +98,13 @@ class Main extends Component {
    if(!this.state.clicked){
       return (
         <div id="frontPage">
-          <input onChange={this.change}></input>
-          <select value={this.state.cuisine} onChange={this.handleChange}>
+        <div id="join">
+          <input onChange={this.change} id="input"></input>
+          <select value={this.state.cuisine} onChange={this.handleChange} id="dropdown">
             {selectOpts};
           </select>
-          <button onClick={this.clicked} >Join</button>
+          <button onClick={this.clicked} id="joinbutton" >Join</button>
+          </div>
         </div>
       )
     }

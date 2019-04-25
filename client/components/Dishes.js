@@ -23,20 +23,22 @@ class Dishes extends Component {
     //console.log(recipeID);
     let images = [];
     for(let k = 0; k < imageLinks.length; k++){
-      images.push(<img src={imageLinks[k][90]} id={k} />)
+      images.push(<img src={imageLinks[k][90]} id={k} className="imagesSize" />)
     }
    
     let l = 0;
     let m = 0;
     while(l < recipeName.length && m < recipeID.length){
-      select.push(<p>{recipeName[l]} <button value={recipeID[m]} onClick={this.props.chatRoom}>select</button></p>)
+      select.push(<p className="choice">{recipeName[l]} <button value={recipeID[m]} onClick={this.props.chatRoom}>select</button></p>)
       l++;
       m++;
     }
     return (
-      <div>
+      <div id="wrapper2">
+        <div className="images">
         {images}
-        <div>
+        </div>
+        <div className="selections">
           {select}
           </div>
         </div>
