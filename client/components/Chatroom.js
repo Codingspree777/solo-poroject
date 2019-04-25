@@ -17,19 +17,19 @@ class Chatroom extends Component {
 		 
 		 return (
 				<div id="wrapper">
-					<Iframe url={link}
+					{/* <Iframe url={link}
         width="75%"
 		height="99%"
 		border="solid 5px"
         className="leftcolumn"
         display="initial"
-        position="relative"/>
-				<Chat messages={this.props.messages} updateMess={this.props.updateMess}></Chat>
-				
+        position="relative"/> */}
+				<Chat messages={this.props.messages} updateMess={this.props.updateMess} pMessage={this.props.pMessage} postMessage={this.props.postMessage}
+				fire={this.props.fire}></Chat>
 				</div>
 		 );
 	 }
 }
 
 
-export default Chatroom;
+export default Chatroom;	

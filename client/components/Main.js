@@ -14,6 +14,8 @@ class Main extends Component {
     this.change = this.change.bind(this);
     this.clicked = this.clicked.bind(this);
     this.chatRoom = this.chatRoom.bind(this);
+    this.pMessage = this.pMessage.bind(this);
+    this.fire = this.fire.bind(this);
     this.state = {
       urls: [],
       messages: [],
@@ -49,7 +51,8 @@ class Main extends Component {
       },
       clicked: false,
       clicked2: false,
-      redirect: false
+      redirect: false,
+      message: ""
     }
   }
 
@@ -77,7 +80,6 @@ class Main extends Component {
   }
  
   chatRoom(e){
-    console.log("yee")
     fetch(`http://api.yummly.com/v1/api/recipe/${e.target.value}?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109`)
     .then(response => response.json())
     .then(data => {
@@ -90,6 +92,23 @@ class Main extends Component {
       this.setState({messages: data2,
       redirect: true})
     })
+  }
+
+  pMessage(e){
+    this.setState({
+        created_by: this.state.user,
+        message: e.target.value
+    })
+  
+  }
+
+  fire(){
+    console.log("yee")
+    axios.post("http://slack-server.elasticbeanstalk.com/messages", {
+      created_by: this.state.user,
+      message: this.state.message
+    })
+    
   }
 
   render() {
@@ -118,7 +137,8 @@ class Main extends Component {
     }
     else if(this.state.clicked2 === false && this.state.redirect === false) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom} messages={this.state.messages}></Dishes>)
     } else {
-        return(<Chatroom urls={this.state.urls} messages={this.state.messages}><div></div></Chatroom>)
+        return(<Chatroom urls={this.state.urls} messages={this.state.messages} pMessage={this.pMessage} postMessage={this.state.postMessage}
+        fire={this.fire}><div></div></Chatroom>)
     }
 
   }
