@@ -15,6 +15,7 @@ class Main extends Component {
     this.clicked = this.clicked.bind(this);
     this.chatRoom = this.chatRoom.bind(this);
     this.pMessage = this.pMessage.bind(this);
+    this.updateChat = this.updateChat.bind(this);
     this.fire = this.fire.bind(this);
     this.state = {
       urls: [],
@@ -99,24 +100,29 @@ class Main extends Component {
         created_by: this.state.user,
         message: e.target.value
     })
-  
   }
 
   fire(){
-    console.log("yee")
     axios.post("http://slack-server.elasticbeanstalk.com/messages", {
       created_by: this.state.user,
       message: this.state.message
     })
-    
   }
 
+  updateChat(){
+    fetch(`http://slack-server.elasticbeanstalk.com/messages`)
+    .then(response => response.json())
+    .then(data2 => {
+      this.setState({messages: data2})
+    })
+
+  }
   render() {
     //console.log(this.state.clicked);
    //console.log(this.state.cuisine);
     // // console.log(this.state.user);
     //console.log(this.state.urls);
-    //console.log(this.state.messages, "main")
+    console.log(this.state.messages, "main")
 
     const keyVal = Object.entries(this.state.cuisineVal);
     const selectOpts = keyVal.map((ele, ind)=>{
@@ -135,10 +141,10 @@ class Main extends Component {
         </div>
       )
     }
-    else if(this.state.clicked2 === false && this.state.redirect === false) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom} messages={this.state.messages}></Dishes>)
+    else if(this.state.clicked2 === false && this.state.redirect === false) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom} messages={this.state.messages} updateChat={this.updateChat}></Dishes>)
     } else {
         return(<Chatroom urls={this.state.urls} messages={this.state.messages} pMessage={this.pMessage} postMessage={this.state.postMessage}
-        fire={this.fire}><div></div></Chatroom>)
+        fire={this.fire} updateChat={this.updateChat}><div></div></Chatroom>) 
     }
 
   }

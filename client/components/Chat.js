@@ -42,14 +42,14 @@ class Chat extends Component {
 	
 		
     render(){
-				let msgLines = []
-				let copy = this.props.messages.slice()
+			let msgLines = []
+			let copy = this.props.messages.slice()
 				for(let i = copy.length-200; i > 0; i--){
-				msgLines.push(<p>user: {copy[i]["created_by"]}	</p>)
-				msgLines.push(<p>message: "{copy[i]["message"]}"</p>)
-				msgLines.push(<p>created: "{copy[i]["created_at"]}"</p>)
+				msgLines.push(<p>[user:] {copy[i]["created_by"]}	</p>)
+				msgLines.push(<p>[message:] "{copy[i]["message"]}"</p>)
+				msgLines.push(<p>[created:] "{copy[i]["created_at"]}"</p>)
 				}
-				
+
         return (
             <div id="chatwindow">
             <ul>{msgLines}</ul>
@@ -59,7 +59,8 @@ class Chat extends Component {
 						<button id="postbutton" onClick={this.props.fire}>Post</button>
 						</div>
             </div>
-        )
+				)
+		
     }
 
 }
