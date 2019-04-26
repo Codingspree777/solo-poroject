@@ -3,7 +3,7 @@ import Main from './Main';
 import Dishes from './Dishes';
 import Chatroom from './Chatroom';
 const axios = require('axios');
-import { ScrollTo } from "react-scroll-to";
+
 
 
 

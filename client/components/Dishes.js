@@ -36,7 +36,7 @@ class Dishes extends Component {
     }
     return (
       <div id="wrapper2">
-      <h2>Select Your dishes</h2>
+      <h2>Select Your Dish</h2>
         <div className="images">
         {images}
         </div>
