@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
-import Dishes from './Dishes';
-import Chatroom from './Chatroom';
-import Chat from './Chat';
-const axios = require('axios');
-
-
-
+import React, { Component } from "react";
+import Dishes from "./Dishes";
+import Chatroom from "./Chatroom";
+import Chat from "./Chat";
+const axios = require("axios");
 
 class Main extends Component {
-  constructor(props, context){
+  constructor(props, context) {
     super(props, context);
     this.handleChange = this.handleChange.bind(this);
     this.change = this.change.bind(this);
@@ -21,15 +18,15 @@ class Main extends Component {
       urls: [],
       messages: [],
       user: "",
-      cuisine:"",
+      cuisine: "",
       dish: "",
-      cuisineVal:  {
+      cuisineVal: {
         American: "cuisine^cuisine-american",
         "Kid-Friendly": "cuisine^cuisine-kid-friendly",
         Italian: "cuisine^cuisine-italian",
         Asian: "cuisine^cuisine-asian",
         Mexican: "cuisine^cuisine-mexican",
-        "Southern & Soul Food":"cuisine^cuisine-southern",
+        "Southern & Soul Food": "cuisine^cuisine-southern",
         French: "cuisine^cuisine-french",
         Southwestern: "cuisine^cuisine-southwestern",
         Barbecue: "cuisine^cuisine-barbecue-bbq",
@@ -48,111 +45,131 @@ class Main extends Component {
         Cuban: "cuisine^cuisine-cuban",
         Hawaiian: "cuisine^cuisine-hawaiian",
         Swedish: "cuisine^cuisine-swedish",
-        Portuguese: "cuisine^cuisine-portuguese",
+        Portuguese: "cuisine^cuisine-portuguese"
       },
       clicked: false,
       clicked2: false,
       redirect: false,
       message: ""
-    }
+    };
   }
 
-  
   handleChange(e) {
-    event.preventDefault()
-      this.setState({
-        cuisine: e.target.value
-      })
-    }
+    event.preventDefault();
+    this.setState({
+      cuisine: e.target.value
+    });
+  }
 
   change(e) {
-   this.setState({
-     user: e.target.value 
-   })
+    this.setState({
+      user: e.target.value
+    });
   }
 
   clicked() {
-    fetch(`http://api.yummly.com/v1/api/recipes?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109&allowedCuisine[]=${this.state.cuisine}`)
-    .then(response => response.json())
-    .then(data => {
-      this.setState({urls: data,
-      clicked: true})
-    })
+    fetch(
+      `http://api.yummly.com/v1/api/recipes?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109&allowedCuisine[]=${this.state.cuisine}`
+    )
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ urls: data, clicked: true });
+      });
   }
- 
-  chatRoom(e){
-    fetch(`http://api.yummly.com/v1/api/recipe/${e.target.value}?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109`)
-    .then(response => response.json())
-    .then(data => {
-      this.setState({urls: data,
-      clicked2: true})
-    })
+
+  chatRoom(e) {
+    fetch(
+      `http://api.yummly.com/v1/api/recipe/${e.target.value}?_app_id=b748a53f&_app_key=6b1d513aedbeea9f27ace38ae4bce109`
+    )
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ urls: data, clicked2: true });
+      });
     fetch(`http://slack-server.elasticbeanstalk.com/messages`)
-    .then(response => response.json())
-    .then(data2 => {
-      this.setState({messages: data2,
-      redirect: true})
-    })
+      .then(response => response.json())
+      .then(data2 => {
+        this.setState({ messages: data2, redirect: true });
+      });
   }
 
-  pMessage(e){
+  pMessage(e) {
     this.setState({
-        created_by: this.state.user,
-        message: e.target.value
-    })
+      created_by: this.state.user,
+      message: e.target.value
+    });
   }
 
-  fire(){
+  fire() {
     axios.post("http://slack-server.elasticbeanstalk.com/messages", {
       created_by: this.state.user,
       message: this.state.message
-    })
+    });
   }
 
-  updateChat(){
+  updateChat() {
     fetch(`http://slack-server.elasticbeanstalk.com/messages`)
-    .then(response => response.json())
-    .then(data2 => {
-      this.setState({messages: data2})
-    })
-
-
-
+      .then(response => response.json())
+      .then(data2 => {
+        this.setState({ messages: data2 });
+      });
   }
   render() {
     //console.log(this.state.clicked);
-   //console.log(this.state.cuisine);
+    //console.log(this.state.cuisine);
     // // console.log(this.state.user);
     //console.log(this.state.urls);
     //console.log(this.state.messages, "main")
 
     const keyVal = Object.entries(this.state.cuisineVal);
-    const selectOpts = keyVal.map((ele, ind)=>{
-      return <option id={ind} value={ele[1]}>{ele[0]}</option>
-    })
-   if(!this.state.clicked){
+    const selectOpts = keyVal.map((ele, ind) => {
+      return (
+        <option id={ind} value={ele[1]}>
+          {ele[0]}
+        </option>
+      );
+    });
+    if (!this.state.clicked) {
       return (
         <div id="frontPage">
-        <div id="join">
-          <input onChange={this.change} id="input" placeholder="Name"></input>
-          <select value={this.state.cuisine} onChange={this.handleChange} id="dropdown">
-            {selectOpts};
-          </select>
-          <button onClick={this.clicked} id="joinbutton" >Join</button>
+          <div id="join">
+            <input onChange={this.change} id="input" placeholder="Name" />
+            <select
+              value={this.state.cuisine}
+              onChange={this.handleChange}
+              id="dropdown"
+            >
+              {selectOpts};
+            </select>
+            <button onClick={this.clicked} id="joinbutton">
+              Join
+            </button>
           </div>
         </div>
-      )
-    }
-    else if(this.state.clicked2 === false && this.state.redirect === false) {return(<Dishes cuisines={this.state.cuisine} urls={this.state.urls} chatRoom={this.chatRoom} messages={this.state.messages} updateChat={this.updateChat}></Dishes>)
+      );
+    } else if (this.state.clicked2 === false && this.state.redirect === false) {
+      return (
+        <Dishes
+          cuisines={this.state.cuisine}
+          urls={this.state.urls}
+          chatRoom={this.chatRoom}
+          messages={this.state.messages}
+          updateChat={this.updateChat}
+        />
+      );
     } else {
-        return(<Chatroom urls={this.state.urls} messages={this.state.messages} pMessage={this.pMessage} postMessage={this.state.postMessage}
-        fire={this.fire} updateChat={this.updateChat}><div></div></Chatroom>) 
+      return (
+        <Chatroom
+          urls={this.state.urls}
+          messages={this.state.messages}
+          pMessage={this.pMessage}
+          postMessage={this.state.postMessage}
+          fire={this.fire}
+          updateChat={this.updateChat}
+        >
+        </Chatroom>
+      );
     }
-
   }
-
-
 }
 
 export default Main;
-
