@@ -21,7 +21,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "browserify": "^10.2.4",
-    "express": "^4.12.3",
+    "express": "^4.17.3",
     "gulp": "^3.9.0",
     "mongoose": "^5.5.3",
     "prop-types": "^15.6.1",
